@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sin(x) Simulation</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <form>
+      <label for="xScale">X Scale:</label>
+      <input type="number" id="xScale" name="xScale" value="50"><br>
+      <label for="yScale">Y Scale:</label>
+      <input type="number" id="yScale" name="yScale" value="50"><br><br>
+      <button type="button" onclick="update()">Update</button>
+    </form>
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+      const width = canvas.width = 600;
+      const height = canvas.height = 400;
+      let xScale = 50;
+      let yScale = 50;
+
+      // Draw x and y axes
+      ctx.beginPath();
+      ctx.moveTo(width / 2, 0);
+      ctx.lineTo(width / 2, height);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+      ctx.lineTo(width, height / 2);
+      ctx.stroke();
+
+      // Draw sin(x) function
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.beginPath();
+        ctx.strokeStyle = "red";
+        for (let x = -width / 2; x < width / 2; x++) {
+          const y = Math.sin(x / xScale) * yScale;
+          ctx.lineTo(x + width / 2, height / 2 - y);
+        }
+        ctx.stroke();
+      }
+      draw();
+
+      // Update function for form
+      function update() {
+        xScale = Number(document.getElementById("xScale").value);
+        yScale = Number(document.getElementById("yScale").value);
+        draw();
+      }
+    </script>
+  </body>
+</html>
