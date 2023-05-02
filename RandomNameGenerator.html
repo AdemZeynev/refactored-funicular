@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random Name Generator</title>
+</head>
+<body>
+	<div style="border: 2px solid black; padding: 20px; margin: 20px;">
+		<h1>Random Name: <span id="randomName"></span></h1>
+		<button onclick="generateRandomName()">Refresh</button>
+	</div>
+
+	<script>
+		function generateRandomName() {
+			var names = ["Aylin Shishkareva", "Asan Gurbev", "Djeihan Mollov", "Erol Zeynev", "Ibrahim Barutev", "Iskren Bekqrov", "Ismail Gegov", "Kenan Bqlev", "Meyka Havaliova", "Orhan Gurbev", "Silven Topov", "Silvi Imamov", "Tajdin Terziev (BATETO)", "Teddy Maksimov" ];
+			var randomIndex = Math.floor(Math.random() * names.length);
+			var randomName = names[randomIndex];
+			document.getElementById("randomName").innerHTML = randomName;
+		}
+		generateRandomName();
+	</script>
+</body>
+</html>
