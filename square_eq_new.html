@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Square Equation Solver</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border: 1px solid black;
+        width: 500px;
+      }
+      label {
+        margin-top: 10px;
+      }
+      input[type="text"] {
+        margin-top: 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+      }
+      input[type="submit"] {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: green;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      input[type="submit"]:hover {
+        background-color: lightgreen;
+      }
+      .result {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid black;
+        width: 500px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Square Equation Solver</h1>
+      <form>
+        <label for="a">Enter the value of 'a':</label>
+        <input type="text" id="a" name="a">
+        <label for="b">Enter the value of 'b':</label>
+        <input type="text" id="b" name="b">
+        <label for="c">Enter the value of 'c':</label>
+        <input type="text" id="c" name="c">
+        <input type="submit" value="Solve">
+      </form>
+      <div class="result">
+        <p id="output"></p>
+      </div>
+    </div>
+    <script>
+      const form = document.querySelector("form");
+      const output = document.querySelector("#output");
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const a = parseFloat(form.a.value);
+        const b = parseFloat(form.b.value);
+        const c = parseFloat(form.c.value);
+        const x1 = (-b + Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        const x2 = (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+        output.innerHTML = `x1 = ${x1}<br>x2 = ${x2}`;
+      });
+    </script>
+  </body>
+</html>
