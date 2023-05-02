@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Concentric Circles</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+input[type="number"] {
+  width: 50px;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+canvas {
+  display: block;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+	</style>
+</head>
+<body>
+	<p>Enter the number of circles:</p>
+	<input type="number" id="numCircles" value="5"><br>
+	<p>Enter the diameter of the circles:</p>
+	<input type="number" id="diameter" value="100"><br>
+	<button onclick="drawCircles()">Draw Circles</button><br>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<script>
+		function drawCircles() {
+			// Get the canvas and the user inputs
+			var canvas = document.getElementById("canvas");
+			var numCircles = document.getElementById("numCircles").value;
+			var diameter = document.getElementById("diameter").value;
+
+			// Convert inputs to numbers
+			numCircles = parseInt(numCircles);
+			diameter = parseInt(diameter);
+
+			// Get the drawing context
+			var ctx = canvas.getContext("2d");
+
+			// Clear the canvas
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Calculate the radius of the circles
+			var radius = diameter / 2;
+
+			// Set the starting x and y coordinates for the first circle
+			var x = canvas.width / 2;
+			var y = canvas.height / 2;
+
+			// Draw the circles
+			for (var i = 0; i < numCircles; i++) {
+				ctx.beginPath();
+				ctx.arc(x, y, radius, 0, 2 * Math.PI);
+				ctx.stroke();
+				radius += diameter;
+			}
+		}
+	</script>
+</body>
+</html>
