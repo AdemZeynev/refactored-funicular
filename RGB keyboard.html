@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keyboard Simulator</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+		}
+		
+		#keyboard {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin: 20px auto;
+			width: 70%;
+			background-color: #333;
+			border-radius: 10px;
+			padding: 20px;
+		}
+		
+		button {
+			width: 50px;
+			height: 50px;
+			margin: 5px;
+			background-color: rgb(200, 200, 200);
+			border: none;
+			border-radius: 5px;
+			font-size: 18px;
+			color: #333;
+			cursor: pointer;
+			transition: all 0.2s ease;
+		}
+		
+		button:hover {
+			background-color: rgb(230, 230, 230);
+			color: #333;
+		}
+		
+		button:active {
+			background-color: rgb(150, 150, 150);
+			color: #fff;
+		}
+		
+		.active {
+			background-color: rgb(100, 100, 100);
+			color: #fff;
+		}
+		
+		#textArea {
+			display: block;
+			margin: 20px auto;
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<div id="keyboard">
+		<button onclick="keyPress('`')" style="background-color:rgb(102, 178, 255);">`</button>
+		<button onclick="keyPress('1')" style="background-color:rgb(102, 178, 255);">1</button>
+		<button onclick="keyPress('2')" style="background-color:rgb(102, 178, 255);">2</button>
+		<button onclick="keyPress('3')" style="background-color:rgb(102, 178, 255);">3</button>
+		<button onclick="keyPress('4')" style="background-color:rgb(102, 178, 255);">4</button>
+		<button onclick="keyPress('5')" style="background-color:rgb(102, 178, 255);">5</button>
+		<button onclick="keyPress('6')" style="background-color:rgb(102, 178, 255);">6</button>
+		<button onclick="keyPress('7')" style="background-color:rgb(102, 178, 255);">7</button>
+		<button onclick="keyPress('8')" style="background-color:rgb(102, 178, 255);">8</button>
+		<button onclick="keyPress('9')" style="background-color:rgb(102, 178, 255);">9</button>
+		<button onclick="keyPress('0')" style="background-color:rgb(102, 178, 255);">0</button>
+		<button onclick="keyPress('-')" style="background-color:rgb(102, 178, 255);">-</button>
+		<button onclick="keyPress('+')" style="background-color:rgb(102, 178, 255);">+</button>
+		<button onclick="keyPress('Backspace')" style="background-color:rgb(255, 51, 51);"><--</button>
+<button onclick="keyPress('CapsLock')" style="background-color:rgb(255, 204, 0);">Caps Lock</button>
+<button onclick="keyPress('q')" style="background-color:rgb(200, 200, 200);">Q</button>
+<button onclick="keyPress('w')" style="background-color:rgb(200, 200, 200);">W</button>
+<button onclick="keyPress('e')" style="background-color:rgb(200, 200, 200);">E</button>
+<button onclick="keyPress('r')" style="background-color:rgb(200, 200, 200);">R</button>
+<button onclick="keyPress('t')" style="background-color:rgb(200, 200, 200);">T</button>
+<button onclick="keyPress('y')" style="background-color:rgb(200, 200, 200);">Y</button>
+<button onclick="keyPress('u')" style="background-color:rgb(200, 200, 200);">U</button>
+<button onclick="keyPress('i')" style="background-color:rgb(200, 200, 200);">I</button>
+<button onclick="keyPress('o')" style="background-color:rgb(200, 200, 200);">O</button>
+<button onclick="keyPress('p')" style="background-color:rgb(200, 200, 200);">P</button>
+<button onclick="keyPress('[')" style="background-color:rgb(102, 178, 255);">[</button>
+<button onclick="keyPress(']')" style="background-color:rgb(102, 178, 255);">]</button>
+<button onclick="keyPress('\\')" style="background-color:rgb(102, 178, 255);"></button>
+<button onclick="keyPress('Enter')" style="background-color:rgb(255, 102, 102);">Enter</button>
+<button onclick="keyPress('CapsLock')" style="background-color:rgb(255, 204, 0);">Caps Lock</button>
+<button onclick="keyPress('a')" style="background-color:rgb(200, 200, 200);">A</button>
+<button onclick="keyPress('s')" style="background-color:rgb(200, 200, 200);">S</button>
+<button onclick="keyPress('d')" style="background-color:rgb(200, 200, 200);">D</button>
+<button onclick="keyPress('f')" style="background-color:rgb(200, 200, 200);">F</button>
+<button onclick="keyPress('g')" style="background-color:rgb(200, 200, 200);">G</button>
+<button onclick="keyPress('h')" style="background-color:rgb(200, 200, 200);">H</button>
+<button onclick="keyPress('j')" style="background-color:rgb(200, 200, 200);">J</button>
+<button onclick="keyPress('k')" style="background-color:rgb(200, 200, 200);">K</button>
+<button onclick="keyPress('l')" style="background-color:rgb(200, 200, 200);">L</button>
+		<button onclick="keyPress(';')" style="background-color:rgb(200, 200, 200);">;</button>
+		<button onclick="keyPress('\'')" style="background-color:rgb(102, 178, 255);">'</button>
+		<button onclick="keyPress('CapsLock')" style="background-color:rgb(255, 204, 0);">Caps Lock</button>
+		<button onclick="keyPress('ShiftLeft')" style="background-color:rgb(255, 204, 0);">Shift</button>
+		<button onclick="keyPress('z')" style="background-color:rgb(200, 200, 200);">Z</button>
+		<button onclick="keyPress('x')" style="background-color:rgb(200, 200, 200);">X</button>
+		<button onclick="keyPress('c')" style="background-color:rgb(200, 200, 200);">C</button>
+		<button onclick="keyPress('v')" style="background-color:rgb(200, 200, 200);">V</button>
+		<button onclick="keyPress('b')" style="background-color:rgb(200, 200, 200);">B</button>
+		<button onclick="keyPress('n')" style="background-color:rgb(200, 200, 200);">N</button>
+		<button onclick="keyPress('m')" style="background-color:rgb(200, 200, 200);">M</button>
+		<button onclick="keyPress(',') style="background-color:rgb(200, 200, 200);">,</button>
+		<button onclick="keyPress('.')" style="background-color:rgb(200, 200, 200);">.</button>
+		<button onclick="keyPress('/')" style="background-color:rgb(102, 178, 255);">/</button>
+		<button onclick="keyPress('ShiftRight')" style="background-color:rgb(255, 204, 0);">Shift</button>
+		<button onclick="keyPress('ControlLeft')" style="background-color:rgb(102, 178, 255);">Ctrl</button>
+		<button onclick="keyPress('AltLeft')" style="background-color:rgb(102, 178, 255);">Alt</button>
+		<button onclick="keyPress('Space')" style="background-color:rgb(200, 200, 200); width: calc(20 * var(--key-width));">Space</button>
+		<button onclick="keyPress('AltRight')" style="background-color:rgb(102, 178, 255);">Alt</button>
+		<button onclick="keyPress('ControlRight')" style="background-color:rgb(102, 178, 255);">Ctrl</button>
+		<button onclick="keyPress('ArrowLeft')" style="background-color:rgb(102, 178, 255);">&lt;-</button>
+		<button onclick="keyPress('ArrowUp')" style="background-color:rgb(102, 178, 255);">^</button>
+		<button onclick="keyPress('ArrowDown')" style="background-color:rgb(102, 178, 255);">v</button>
+		<button onclick="keyPress('ArrowRight')" style="background-color:rgb(102, 178, 255);">-&gt;</button>
+		<button onclick="keyPress('Escape')" style="background-color:rgb(102, 178, 255);">Esc</
+</div>
+		<script>
+			var capsLock = false;
+			var shift = false;
+		function keyPress(key) {
+			var textarea = document.getElementById("text");
+			if (key == "Backspace") {
+				textarea.value = textarea.value.substring(0, textarea.value.length - 1);
+			} else if (key == "CapsLock") {
+				capsLock = !capsLock;
+			} else if (key == "ShiftLeft" || key == "ShiftRight") {
+				shift = true;
+			} else if (key == "Tab") {
+				textarea.value += "\t";
+			} else if (key == "Enter") {
+				textarea.value += "\n";
+			} else if (key == "Escape") {
+				textarea.value = "";
+			} else if (key == "ControlLeft" || key == "ControlRight") {
+				textarea.value += "^";
+			} else if (key == "AltLeft" || key == "AltRight") {
+				textarea.value += "Alt";
+			} else if (key == "ArrowLeft") {
+				textarea.value += shift ? "<<" : "<";
+			} else if (key == "ArrowUp") {
+				textarea.value += shift ? "^^" : "^";
+			} else if (key == "ArrowDown") {
+				textarea.value += shift ? "vv" : "v";
+			} else if (key == "ArrowRight") {
+				textarea.value += shift ? ">>" : ">";
+			} else {
+				if (capsLock || shift) {
+					key = key.toUpperCase();
+				}
+				textarea.value += key;
+			}
+		}
+	</script>
+</body>
+</html>
