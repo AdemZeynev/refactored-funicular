@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LED Simulation</title>
+	<style>
+		.led {
+			display: inline-block;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background-color: black;
+			box-shadow: 0 0 20px #fff;
+			transition: background-color 0.5s ease;
+			margin-right: 10px;
+		}
+		
+		.led.on {
+			background-color: red;
+			box-shadow: 0 0 20px red;
+		}
+	</style>
+</head>
+<body>
+	<div class="led" id="led1"></div>
+	<button onclick="turnOn(1)">ON</button>
+	<button onclick="turnOff(1)">OFF</button>
+	
+	<div class="led" id="led2"></div>
+	<button onclick="turnOn(2)">ON</button>
+	<button onclick="turnOff(2)">OFF</button>
+	
+	<script>
+		function turnOn(ledNum) {
+			document.getElementById("led" + ledNum).classList.add("on");
+		}
+		
+		function turnOff(ledNum) {
+			document.getElementById("led" + ledNum).classList.remove("on");
+		}
+	</script>
+</body>
+</html>
