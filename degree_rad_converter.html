@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Конвертор на градуси и радиани</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        color: #333;
+      }
+      form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      label {
+        font-size: 18px;
+        margin-right: 10px;
+        color: #333;
+      }
+      input[type="number"] {
+        font-size: 18px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      input[type="button"] {
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #4CAF50;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      input[type="button"]:hover {
+        background-color: #333;
+      }
+      input[type="reset"] {
+        font-size: 18px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: #ccc;
+        color: #333;
+        cursor: pointer;
+      }
+      input[type="reset"]:hover {
+        background-color: #333;
+        color: #fff;
+      }
+      p#result {
+        font-size: 18px;
+        text-align: center;
+        color: #333;
+      }
+      canvas {
+        margin: 0 auto;
+        display: block;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Конвертор на градуси и радиани</h1>
+    <form>
+      <label for="degrees">Градуси:</label>
+      <input type="number" id="degrees" name="degrees" required>
+      <input type="button" value="Конвертирай" onclick="convertDegreesToRadians()">
+      <input type="reset" value="Изчисти">
+    </form>
+    <form>
+      <label for="radians">Радиани:</label>
+      <input type="number" id="radians" name="radians" required>
+      <input type="button" value="Конвертирай" onclick="convertRadiansToDegrees()">
+      <input type="reset" value="Изчисти">
+    </form>
+    <canvas id="angle" width="300" height="300"></canvas>
+    <p id="result"></p>
+    <script>
+      function convertDegreesToRadians() {
+            const degrees = parseFloat(document.getElementById('degrees').value);
+    const radians = degrees * (Math.PI / 180);
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = `${degrees} градуса = ${radians.toFixed(2)} радиана`;
+    
+    drawAngle(degrees);
+  }
+  
+  function convertRadiansToDegrees() {
+    const radians = parseFloat(document.getElementById('radians').value);
+    const degrees = radians * (180 / Math.PI);
+    const resultElement = document.getElementById('result');
+    resultElement.innerHTML = `${radians.toFixed(2)} радиана = ${degrees} градуса`;
+    
+    drawAngle(degrees);
+  }
+  
+  function drawAngle(degrees) {
+    const canvas = document.getElementById('angle');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.beginPath();
+    ctx.moveTo(150, 150);
+    ctx.arc(150, 150, 100, 0, degreesToRadians(degrees));
+    ctx.lineTo(150, 150);
+    ctx.fillStyle = '#4CAF50';
+    ctx.fill();
+    ctx.stroke();
+  }
+  
+  function degreesToRadians(degrees) {
+    return degrees * (Math.PI / 180);
+  }
+</script>
+</body>
+</html>
