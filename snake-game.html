@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake Game</title>
+	<style>
+		body {
+			background-color: #ddd;
+		}
+
+		canvas {
+			display: block;
+			margin: auto;
+			border: 1px solid #333;
+		}
+
+		#controls {
+			margin-top: 20px;
+			text-align: center;
+		}
+
+		#controls label {
+			display: inline-block;
+			width: 120px;
+			font-size: 16px;
+			font-weight: bold;
+			margin-right: 10px;
+			text-align: right;
+		}
+
+		#controls input[type="range"] {
+			width: 200px;
+			vertical-align: middle;
+		}
+
+		#buttons {
+			margin-top: 20px;
+			text-align: center;
+		}
+
+		#buttons button {
+			font-size: 16px;
+			font-weight: bold;
+			padding: 10px 20px;
+			border-radius: 5px;
+			background-color: #333;
+			color: #fff;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+			margin-right: 10px;
+		}
+
+		#gameover {
+			display: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			padding: 20px;
+			border-radius: 5px;
+			background-color: #fff;
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+			text-align: center;
+			font-size: 24px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas" width="600" height="400"></canvas>
+
+	<div id="controls">
+		<label>Speed:</label>
+		<input type="range" id="speed" min="1" max="10" value="5">
+	</div>
+
+	<div id="buttons">
+		<button id="start">Start</button>
+		<button id="stop">Stop</button>
+		<button id="restart">Restart</button>
+	</div>
+
+	<div id="gameover">Game Over<br>Your score: <span id="score"></span><br><button id="restart2">Restart</button></div>
+
+	<script>
+		// Set up the canvas and context
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		var tileSize = 10;
+
+		// Set up the game variables
+		var snake;
+		var food;
+		var direction;
+		var gameLoop;
+		var score;
+
+		// Set up the speed control
+		var speed = document.getElementById("speed");
+
+		// Set up the start button
+		document.getElementById("start").addEventListener("click", function() {
+			startGame();
+		});
+
+		// Set up the stop button
+		document.getElementById("stop").addEventListener("click", function() {
+			clearInterval(gameLoop);
+		});
+
+		// Set up the restart button
+		document.getElementById	("restart").addEventListener("click", function() {
+		restartGame();
+	});
+
+	// Set up the restart button in the game over message
+	document.getElementById("restart2").addEventListener("click", function() {
+		restartGame();
+	});
+
+	// Set up the arrow key controls
+	document.addEventListener("keydown", function(event) {
+		switch (event.keyCode) {
+			case 37: // left
+				if (direction != "right") {
+					direction = "left";
+				}
+				break;
+			case 38: // up
+				if (direction != "down") {
+					direction = "up";
+				}
+				break;
+			case 39: // right
+				if (direction != "left") {
+					direction = "right";
+				}
+				break;
+			case 40: // down
+				if (direction != "up") {
+					direction = "down";
+				}
+				break;
+		}
+	});
+
+	// Start the game
+	startGame();
+
+	// Function to start the game
+	function startGame() {
+		// Set up the initial game state
+		snake = [{x: 5, y: 5}, {x: 4, y: 5}, {x: 3, y: 5}];
+		food = generateFood();
+		direction = "right";
+		score = 0;
+
+		// Set up the game loop with the initial speed
+		gameLoop = setInterval(update, 1000 / speed.value);
+
+		// Hide the game over message
+		document.getElementById("gameover").style.display = "none";
+	}
+
+	// Function to restart the game
+	function restartGame() {
+		// Stop the game loop
+		clearInterval(gameLoop);
+
+		// Start a new game
+		startGame();
+	}
+
+	// Function to update the game state each frame
+	function update() {
+		// Move the snake in the current direction
+		var head = snake[0];
+		switch (direction) {
+			case "left":
+				head = {x: head.x - 1, y: head.y};
+				break;
+			case "up":
+				head = {x: head.x, y: head.y - 1};
+				break;
+			case "right":
+				head = {x: head.x + 1, y: head.y};
+				break;
+			case "down":
+				head = {x: head.x, y: head.y + 1};
+				break;
+		}
+
+		// Check for collisions with the walls or the snake's body
+		if (head.x < 0 || head.x >= canvas.width / tileSize ||
+			head.y < 0 || head.y >= canvas.height / tileSize ||
+			checkCollision(head)) {
+			// Game over
+			clearInterval(gameLoop);
+			document.getElementById("score").innerHTML = score;
+			document.getElementById("gameover").style.display = "block";
+			return;
+		}
+
+		// Check for collisions with the food
+		if (head.x == food.x && head.y == food.y) {
+			// Eat the food and generate a new one
+			snake.unshift(head);
+			food = generateFood();
+			score++;
+		} else {
+			// Move the snake normally
+			snake.pop();
+			snake.unshift(head);
+		}
+
+		// Clear the canvas and draw the new state
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		drawSnake();
+		drawFood();
+	}
+
+	// Function to generate a new food location
+	function generateFood()
+	{
+var x = Math.floor(Math.random() * canvas.width / tileSize);
+var y = Math.floor(Math.random() * canvas.height / tileSize);
+if (checkCollision({x: x, y: y})) {
+// Try again if the food is inside the snake
+return generateFood();
+} else {
+return {x: x, y: y};
+}
+}
+	// Function to check for collisions with the snake's body
+	function checkCollision(head) {
+		for (var i = 1; i < snake.length; i++) {
+			if (head.x == snake[i].x && head.y == snake[i].y) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Function to draw the snake
+	function drawSnake() {
+		for (var i = 0; i < snake.length; i++) {
+			ctx.fillStyle = "green";
+			ctx.fillRect(snake[i].x * tileSize, snake[i].y * tileSize, tileSize, tileSize);
+		}
+	}
+
+	// Function to draw the food
+	function drawFood() {
+		ctx.fillStyle = "red";
+		ctx.fillRect(food.x * tileSize, food.y * tileSize, tileSize, tileSize);
+	}
+
+	// Function to control the speed of the game
+	function changeSpeed() {
+		// Stop the game loop
+		clearInterval(gameLoop);
+
+		// Start a new game loop with the updated speed
+		gameLoop = setInterval(update, 1000 / speed.value);
+	}
+</script>
+</body>
+</html>
