@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dynamic Vectors</title>
+    <style>
+        #canvas {
+            width: 100%;
+            height: 100vh;
+            cursor: crosshair;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="controls">
+        <button onclick="increaseSpeed()">Increase Speed</button>
+        <button onclick="decreaseSpeed()">Decrease Speed</button>
+        <button onclick="increaseSize()">Increase Size</button>
+        <button onclick="decreaseSize()">Decrease Size</button>
+        <button onclick="addVector()">Add Vector</button>
+    </div>
+    <script>
+        const canvas = document.getElementById("canvas");
+        const context = canvas.getContext("2d");
+
+        const vectors = [];
+
+        canvas.addEventListener("click", function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            vectors.push({ x: x, y: y, dx: Math.random() * 4 - 2, dy: Math.random() * 4 - 2, size: 10, speed: 1 });
+        });
+
+        function drawVectors() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const vector of vectors) {
+                context.beginPath();
+                context.moveTo(vector.x, vector.y);
+                context.lineTo(vector.x + vector.dx * vector.speed, vector.y + vector.dy * vector.speed);
+                context.lineWidth = vector.size;
+                context.strokeStyle = "blue";
+                context.stroke();
+                context.closePath();
+            }
+        }
+
+        function updateVectors() {
+            for (const vector of vectors) {
+                vector.x += vector.dx * vector.speed;
+                vector.y += vector.dy * vector.speed;
+
+                if (vector.x < 0 || vector.x > canvas.width) {
+                    vector.dx *= -1;
+                }
+
+                if (vector.y < 0 || vector.y > canvas.height) {
+                    vector.dy *= -1;
+                }
+            }
+        }
+
+        function increaseSpeed() {
+            for (const vector of vectors) {
+                vector.speed += 0.1;
+            }
+        }
+
+        function decreaseSpeed() {
+            for (const vector of vectors) {
+                vector.speed -= 0.1;
+                if (vector.speed < 0) {
+                    vector.speed = 0;
+                }
+            }
+        }
+
+        function increaseSize() {
+            for (const vector of vectors) {
+                vector.size += 1;
+            }
+        }
+
+        function decreaseSize() {
+            for (const vector of vectors) {
+                vector.size -= 1;
+                if (vector.size < 1) {
+                    vector.size = 1;
+                }
+            }
+        }
+
+        function addVector() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const dx = Math.random() * 4 - 2;
+           
+            const dy = Math.random() * 4 - 2;
+            const size = 10;
+            const speed = 1;
+            
+            vectors.push({ x: x, y: y, dx: dx, dy: dy, size: size, speed: speed });
+        }
+
+        function animate() {
+            drawVectors();
+            updateVectors();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
