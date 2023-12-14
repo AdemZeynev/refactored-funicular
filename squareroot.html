@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квадратен корен калкулатор</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: #292929;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(100, 50, 40, 0.1);
+			background-color: #a5FFb7;
+			border-radius: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #clear {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        #clear:hover {
+            background-color: #c0392b;
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calculator">
+    <h2>Квадратен корен калкулатор</h2>
+    <label for="number">Въведете число:</label>
+    <input type="number" id="number" placeholder="Въведете число" step="any">
+    <button onclick="calculateSquareRoot()">Пресметни</button>
+    <button id="clear" onclick="clearInput()">Изчисти</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateSquareRoot() {
+        var numberInput = document.getElementById('number');
+        var resultDiv = document.getElementById('result');
+        var number = parseFloat(numberInput.value);
+
+        if (!isNaN(number)) {
+            var squareRoot = Math.sqrt(number);
+            resultDiv.innerHTML = 'Квадратният корен е: ' + squareRoot.toFixed(2);
+        } else {
+            resultDiv.innerHTML = 'Моля, въведете валидно число.';
+        }
+    }
+
+    function clearInput() {
+        var numberInput = document.getElementById('number');
+        var resultDiv = document.getElementById('result');
+
+        numberInput.value = '';
+        resultDiv.innerHTML = '';
+    }
+</script>
+
+</body>
+</html>
